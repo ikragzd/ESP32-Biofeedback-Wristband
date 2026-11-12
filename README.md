@@ -1,33 +1,27 @@
 # Closed-Loop Biofeedback Wristband with Standalone TinyML
 
-A standalone, closed-loop wearable biomechatronic system designed to process physiological signals in real time and regulate the autonomic nervous system through haptic and thermal actuators[cite: 1]. By running TinyML inference directly on an ESP32-S3 Mini, the device operates completely offline without requiring a mobile application or cloud connectivity[cite: 2].
+A standalone, closed-loop wearable biomechatronic system designed to process physiological signals in real time and regulate the autonomic nervous system through haptic and thermal actuators. By running TinyML inference directly on an ESP32-S3 Mini, the device operates completely offline without requiring a mobile application or cloud connectivity.
 
 ## System Architecture
-Unlike passive biometric trackers that only log data or open-loop stimulators that require manual activation, this hardware performs autonomous on-device classification and physical intervention[cite: 1, 2]:
+Unlike passive biometric trackers that only log data or open-loop stimulators that require manual activation, this hardware performs autonomous on-device classification and physical intervention:
 
-1. **Startup Auto-Calibration:** During the first 2 minutes after power-on, TinyML inference is paused while baseline sensor readings are averaged and stored in non-volatile memory to adapt to daily user baselines[cite: 3, 4].
-2. **32 Hz Multi-Sensor Fusion & Filtering:** Physiological and motion signals are sampled synchronously at 32 Hz and processed through a software Moving Average Filter to suppress hardware noise and motion artifacts[cite: 4].
-3. **On-Device TinyML Classification:** A trained neural network evaluates multi-dimensional time-series patterns locally on the ESP32-S3 Mini to distinguish physical exercise or daily movement from acute autonomic stress episodes[cite: 2, 4].
-4. **Closed-Loop Actuation:** When physiological thresholds are exceeded, the microcontroller autonomously drives tactile and thermal actuators to help regulate the autonomic nervous system[cite: 2, 4].
+1. **Startup Auto-Calibration:** During the first 2 minutes after power-on, TinyML inference is paused while baseline sensor readings are averaged and stored in non-volatile memory to adapt to daily user baselines.
+2. **32 Hz Multi-Sensor Fusion & Filtering:** Physiological and motion signals are sampled synchronously at 32 Hz and processed through a software Moving Average Filter to suppress hardware noise and motion artifacts.
+3. **On-Device TinyML Classification:** A trained neural network evaluates multi-dimensional time-series patterns locally on the ESP32-S3 Mini to distinguish physical exercise or daily movement from acute autonomic stress episodes.
+4. **Closed-Loop Actuation:** When physiological thresholds are exceeded, the microcontroller autonomously drives tactile and thermal actuators to help regulate the autonomic nervous system.
 
 ## Hardware Components
-* **Microcontroller:** ESP32-S3 Mini dual-core module running offline Edge AI inference[cite: 2, 3]
+* **Microcontroller:** ESP32-S3 Mini dual-core module running offline Edge AI inference
 * **Sensors:**
-  * **MAX30101:** Optical heart rate and blood oxygen saturation monitoring[cite: 3]
-  * **100k NTC Thermistor:** Direct skin-contact temperature measurement via a voltage divider circuit[cite: 3]
-  * **GSR Sensor with Op-Amp:** Galvanic skin response measurement with hardware analog noise filtering[cite: 3]
-  * **6-Axis Accelerometer:** Motion sensing to separate physical activity from cognitive or autonomic stress[cite: 3]
+  * **MAX30101:** Optical heart rate and blood oxygen saturation monitoring
+  * **100k NTC Thermistor:** Direct skin-contact temperature measurement via a voltage divider circuit
+  * **GSR Sensor with Op-Amp:** Galvanic skin response measurement with hardware analog noise filtering
+  * **6-Axis Accelerometer:** Motion sensing to separate physical activity from cognitive or autonomic stress
 * **Actuators:**
-  * **LRA Motor with AC Driver IC:** Sharp, frequency-controlled tactile feedback[cite: 3]
-  * **PWM-Driven Peltier Module:** Fluctuating cooling stimulation paired with an aluminum heat-dissipation plate and vented housing to prevent thermal adaptation[cite: 3]
-* **Power Management:** Rechargeable 3.7V 400mAh 25C LiPo battery with dedicated charge and overcurrent protection circuitry[cite: 3]
-* **Mechanical Design:** Curved ergonomic upper housing for the microcontroller and battery, paired with a lower skin-contact module housing the sensors and Peltier element via an asymmetric TPU strap[cite: 5].
+  * **LRA Motor with AC Driver IC:** Sharp, frequency-controlled tactile feedback
+  * **PWM-Driven Peltier Module:** Fluctuating cooling stimulation paired with an aluminum heat-dissipation plate and vented housing to prevent thermal adaptation
+* **Power Management:** Rechargeable 3.7V 400mAh 25C LiPo battery with dedicated charge and overcurrent protection circuitry
+* **Mechanical Design:** Curved ergonomic upper housing for the microcontroller and battery, paired with a lower skin-contact module housing the sensors and Peltier element via an asymmetric TPU strap.
 
 ## Modular Industrial Variant
-* **Occupational Health & Safety Extension:** Supports an optional LoRa transceiver, battery telemetry, and physical emergency SOS button for off-grid worker safety monitoring in high-risk sites such as mines[cite: 1, 4].
-
-## Repository Contents
-* `firmware/` — Embedded C++ sensor acquisition, Moving Average Filter, and TinyML model code
-* `hardware/` — Circuit schematics and component wiring diagrams
-* `cad/` — Ergonomic wrist enclosure CAD and STL files
-* `docs/` — Block diagrams and system design documentation
+* **Occupational Health & Safety Extension:** Supports an optional LoRa transceiver, battery telemetry, and physical emergency SOS button for off-grid worker safety monitoring in high-risk sites such as mines.
